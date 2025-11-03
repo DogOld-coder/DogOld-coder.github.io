@@ -1,91 +1,175 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Próximamente - DogOld Coder</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            overflow: hidden;
-        }
-        
-        .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 4rem 3rem;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
-            animation: fadeIn 1.5s ease-in;
-        }
-        
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: #667eea;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            animation: slideDown 1s ease-out;
-        }
-        
-        p {
-            font-size: 1.5rem;
-            color: #555;
-            line-height: 1.6;
-            font-weight: 300;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
-        @keyframes slideDown {
-            from {
-                transform: translateY(-30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            p {
-                font-size: 1.2rem;
-            }
-            .container {
-                padding: 3rem 2rem;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Xafronox — Muy pronto</title>
+  <meta name="description" content="Xafronox está preparando cosas hermosas para ti. Experiencias digitales modernas, pulidas y llenas de magia." />
+  <meta property="og:title" content="Xafronox — Muy pronto" />
+  <meta property="og:description" content="Estamos preparando cosas hermosas para ti." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#4338ca" />
+
+  <!-- Fuente & Tailwind -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root{
+      --brand:#6366f1; /* indigo-500 */
+      --brand-2:#8b5cf6;/* violet-500 */
+      --brand-3:#22d3ee;/* cyan-400 */
+      --glass-bg: rgba(255,255,255,0.06);
+      --glass-br: 1px solid rgba(255,255,255,0.18);
+    }
+    html,body{height:100%}
+    body{font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial, sans-serif;}
+
+    /* Fondo: gradiente, ruido y brillos */
+    .bg-orbit{
+      position: relative; min-height:100vh; overflow:hidden; color:#fff;
+      background: radial-gradient(1200px 900px at 15% 10%, rgba(255,255,255,.08), transparent 55%),
+                  radial-gradient(1000px 900px at 85% 20%, rgba(255,255,255,.08), transparent 55%),
+                  linear-gradient(135deg, #0f172a 0%, #1e1b4b 30%, #312e81 60%, #0ea5e9 120%);
+      isolation:isolate;
+    }
+    .noise::after{
+      content:""; position:absolute; inset:0; pointer-events:none; opacity:.07; mix-blend:multiply;
+      background-image:url('data:image/svg+xml;utf8,\
+      <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">\
+        <filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/></filter>\
+        <rect width="160" height="160" filter="url(%23n)" opacity="0.45"/>\
+      </svg>');
+      background-size: 200px 200px;
+    }
+    /* Nebulosas animadas */
+    .glow{ position:absolute; inset:-30%; filter: blur(100px); opacity:.35; border-radius:50%; animation: drift 24s ease-in-out infinite; }
+    .glow.one{ background: conic-gradient(from 90deg, var(--brand), var(--brand-2), var(--brand-3), var(--brand)); }
+    .glow.two{ background: conic-gradient(from 180deg, #60a5fa, #c084fc, #93c5fd, #60a5fa); animation-delay:-12s; mix-blend:screen; }
+    @keyframes drift{ 0%,100%{ transform: translateY(-2%) rotate(0deg);} 50%{ transform: translateY(2%) rotate(12deg);} }
+
+    /* Estrellas minimal (canvas) y parallax sutil */
+    #stars{ position:absolute; inset:0; z-index:0; opacity: .45; }
+
+    /* Tarjeta cristal */
+    .glass{ backdrop-filter: blur(12px); background: var(--glass-bg); border: var(--glass-br); }
+
+    /* Animaciones */
+    @keyframes fade-up{ from{opacity:0; transform: translateY(18px) scale(.98);} to{opacity:1; transform: translateY(0) scale(1);} }
+    .fade-up{ animation: fade-up .7s ease-out both; }
+    .delay-1{ animation-delay:.12s } .delay-2{ animation-delay:.22s } .delay-3{ animation-delay:.32s }
+
+    /* Botones */
+    .btn{ transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease; }
+    .btn:hover{ transform: translateY(-2px); box-shadow: 0 12px 28px rgba(99,102,241,.45); }
+
+    /* Badge superior */
+    .badge{ font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; letter-spacing:.02em }
+  </style>
 </head>
-<body>
-    <div class="container">
-        <h1>¡Próximamente mejoras!</h1>
-        <p>Mantente atento a esta web</p>
-    </div>
+<body class="bg-orbit noise">
+  <!-- estrellas & brillos -->
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="glow one" aria-hidden="true"></div>
+  <div class="glow two" aria-hidden="true"></div>
+
+  <main class="relative z-10 min-h-screen flex items-center justify-center px-6 py-16 md:px-12">
+    <section class="w-full max-w-6xl text-center">
+      <div class="glass rounded-[28px] p-8 md:p-14 shadow-2xl fade-up">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 ring-1 ring-white/20 text-xs md:text-sm text-white/90 badge">
+          <span>◦</span>
+          <span>prelanzamiento</span>
+          <span>•</span>
+          <span>actualizando magia</span>
+        </div>
+
+        <!-- Marca -->
+        <h1 class="mt-5 text-4xl md:text-6xl font-extrabold leading-tight tracking-tight drop-shadow fade-up">
+          ✨ Xafronox está preparando cosas hermosas para ti ✨
+        </h1>
+        <p class="max-w-3xl mx-auto mt-5 md:mt-6 text-base md:text-xl text-white/90 font-light fade-up delay-1">
+          Estamos puliendo experiencias digitales modernas, elegantes y con detalle artesanal. Muy pronto podrás explorar lo que estamos creando.
+        </p>
+
+        <!-- CTA -->
+        <div class="mt-10 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 fade-up delay-2">
+          <a href="https://xafronox.app" target="_blank" rel="noopener noreferrer"
+             class="btn inline-flex items-center justify-center rounded-full bg-white text-indigo-700 font-semibold px-7 py-3 md:px-9 md:py-4">
+            Ir a xafronox.app
+          </a>
+          <a href="https://xafronox.live" target="_blank" rel="noopener noreferrer"
+             class="btn inline-flex items-center justify-center rounded-full border border-white/70 text-white font-semibold px-7 py-3 md:px-9 md:py-4 hover:bg-white hover:text-indigo-700">
+            Ir a xafronox.live
+          </a>
+        </div>
+
+        <!-- Línea decorativa -->
+        <div class="mt-12 h-px w-full bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+
+        <!-- Mini features visuales -->
+        <ul class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-white/80 fade-up delay-3">
+          <li class="glass rounded-xl px-4 py-3">Diseño limpio y ultra moderno</li>
+          <li class="glass rounded-xl px-4 py-3">Rendimiento y accesibilidad</li>
+          <li class="glass rounded-xl px-4 py-3">Experiencias con un toque mágico</li>
+        </ul>
+
+        <!-- Footer -->
+        <div class="mt-10 text-xs md:text-sm text-white/70">
+          © <span id="year"></span> Xafronox. Todos los derechos reservados.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Año dinámico
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Estrellas minimal y parallax sutil
+    const cvs = document.getElementById('stars');
+    const ctx = cvs.getContext('2d');
+    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+    let w, h, stars;
+    function resize(){
+      w = cvs.width = Math.floor(innerWidth * DPR);
+      h = cvs.height = Math.floor(innerHeight * DPR);
+      cvs.style.width = innerWidth + 'px';
+      cvs.style.height = innerHeight + 'px';
+      makeStars(); draw();
+    }
+    function makeStars(){
+      const count = Math.floor((w*h) / (18000 * DPR)); // densidad adaptable
+      stars = Array.from({length: count}, () => ({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        r: Math.random()*1.6 + 0.2,
+        a: Math.random()*0.5 + 0.2,
+        tw: Math.random()*0.02 + 0.005
+      }));
+    }
+    let t = 0; function draw(){
+      ctx.clearRect(0,0,w,h);
+      for(const s of stars){
+        const alpha = s.a + Math.sin(t*s.tw)*0.25;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        ctx.fill();
+      }
+      t += 1; requestAnimationFrame(draw);
+    }
+    resize(); addEventListener('resize', resize);
+
+    // Parallax suave con el mouse
+    const root = document.querySelector('main');
+    addEventListener('pointermove', (e)=>{
+      const x = (e.clientX / innerWidth - .5) * 8; // -4 a 4
+      const y = (e.clientY / innerHeight - .5) * 8;
+      root.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    });
+  </script>
 </body>
 </html>
