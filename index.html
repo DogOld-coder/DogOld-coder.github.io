@@ -1,490 +1,1119 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xafronox | Marca Personal y Ecosistema Digital</title>
-    <meta name="description" content="Marca personal y profesional de Xafronox: innovación, startups tech, emprendimiento digital, portafolio, blog y comunidad.">
-    <meta name="keywords" content="xafronox, startup tech, emprendimiento digital, innovación, tecnología, portafolio">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Xafronox | Marca Personal de su Fundador">
-    <meta property="og:description" content="Explora el universo Xafronox: proyectos, portafolio, blog, podcast, comunidad y herramientas.">
-    <meta property="og:image" content="logo.png">
-    <meta property="og:url" content="https://xafronox.live">
-    <link rel="icon" type="image/png" href="logo.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" integrity="sha512-GYcNDjv7ZKfVEWilQoNqT9XyM54q9WlH0I1GtIsfRSAxEPPYu95LjAqS4I2oXeB9lnAaPD75eZyPX4R4kR1F3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="immersive.css">
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Fundador Xafronox",
-        "jobTitle": "Founder & CEO",
-        "brand": {
-            "@type": "Brand",
-            "name": "Xafronox",
-            "sameAs": [
-                "https://xafronox.live",
-                "https://xafronox.app",
-                "https://www.linkedin.com/company/xafronox"
-            ]
-        },
-        "url": "https://xafronox.live",
-        "image": "logo.png",
-        "sameAs": [
-            "https://twitter.com/xafronox",
-            "https://www.linkedin.com/in/xafronox",
-            "https://www.youtube.com/@xafronox"
-        ],
-        "knowsAbout": [
-            "startup tech",
-            "emprendimiento digital",
-            "innovación",
-            "desarrollo de producto",
-            "IA aplicada"
-        ],
-        "alumniOf": "Xafronox Innovation Lab"
-    }
-    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xafronox | Intelligent Software & Game Systems</title>
+    <style>
+        :root {
+            --bg-color: #02030a;
+            --bg-elevated: rgba(5, 7, 22, 0.94);
+            --text-color: #f5f5f7;
+            --muted-color: #a3a7c2;
+            --accent-color: #00f3ff;
+            --accent-soft: rgba(0, 243, 255, 0.18);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --radius-lg: 20px;
+            --radius-pill: 999px;
+            --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at top, #071126 0, #02030a 40%, #02030a 100%);
+            color: var(--text-color);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        #canvas-container {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+        }
+
+        #ui-layer {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            pointer-events: none; /* re-enable selectively */
+        }
+
+        .app-shell {
+            position: relative;
+            width: 100%;
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 28px 20px 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            pointer-events: auto;
+        }
+
+        /* NAVBAR */
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-mark {
+            width: 30px;
+            height: 30px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background:
+                radial-gradient(circle at 20% 0%, rgba(0, 243, 255, 0.95), transparent 60%),
+                radial-gradient(circle at 80% 90%, rgba(0, 86, 255, 0.9), transparent 70%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.18), transparent 70%);
+            box-shadow: 0 0 22px rgba(0, 243, 255, 0.9);
+        }
+
+        .brand-text-main {
+            font-size: 1.05rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .brand-text-sub {
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted-color);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted-color);
+        }
+
+        .nav-links a {
+            position: relative;
+            text-decoration: none;
+            color: inherit;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-color);
+            transition: width 0.2s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge-outline {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            padding: 5px 12px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: linear-gradient(120deg, rgba(0, 243, 255, 0.08), transparent);
+            color: var(--muted-color);
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: radial-gradient(circle at center, var(--accent-color), transparent 70%);
+            box-shadow: 0 0 16px rgba(0, 243, 255, 0.9);
+        }
+
+        /* MAIN LAYOUT */
+        .main {
+            display: grid;
+            grid-template-columns: minmax(0, 3.2fr) minmax(0, 2.3fr);
+            gap: 26px;
+            align-items: stretch;
+        }
+
+        .hero-card {
+            background: linear-gradient(135deg, rgba(8, 12, 40, 0.96), rgba(6, 9, 30, 0.96));
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-soft);
+            padding: 24px 26px 26px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            inset: -60%;
+            background:
+                radial-gradient(circle at 0 0, rgba(0, 243, 255, 0.14), transparent 55%),
+                radial-gradient(circle at 100% 20%, rgba(0, 115, 255, 0.24), transparent 65%);
+            opacity: 0.9;
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-kicker {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.26em;
+            color: var(--muted-color);
+            margin-bottom: 12px;
+        }
+
+        .hero-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+
+        h1.hero-title {
+            font-weight: 300;
+            font-size: clamp(2.4rem, 4vw, 3.3rem);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            inset: 0;
+            opacity: 0.75;
+            pointer-events: none;
+        }
+
+        .glitch::before {
+            color: #ff00c1;
+            mix-blend-mode: screen;
+            animation: glitch-1 2s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            color: #00fff9;
+            mix-blend-mode: screen;
+            animation: glitch-2 3s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-1 {
+            0% { clip-path: inset(10% 0 60% 0); transform: translate(-2px, 0); }
+            40% { clip-path: inset(40% 0 20% 0); transform: translate(2px, 0); }
+            80% { clip-path: inset(0 0 80% 0); transform: translate(-1px, 0); }
+            100% { clip-path: inset(30% 0 30% 0); transform: translate(1px, 0); }
+        }
+
+        @keyframes glitch-2 {
+            0% { clip-path: inset(80% 0 5% 0); transform: translate(1px, 0); }
+            30% { clip-path: inset(30% 0 40% 0); transform: translate(-2px, 0); }
+            70% { clip-path: inset(5% 0 75% 0); transform: translate(2px, 0); }
+            100% { clip-path: inset(50% 0 30% 0); transform: translate(-1px, 0); }
+        }
+
+        .state-pill {
+            font-size: 0.62rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            padding: 5px 11px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--muted-color);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .state-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: radial-gradient(circle at center, var(--accent-color), transparent 65%);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.8);
+        }
+
+        .hero-subtitle {
+            font-size: 1.02rem;
+            line-height: 1.7;
+            color: var(--muted-color);
+            margin-bottom: 18px;
+            max-width: 32rem;
+        }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 18px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--muted-color);
+            margin-bottom: 20px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            position: relative;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            padding: 11px 22px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-color);
+            overflow: hidden;
+            backdrop-filter: blur(18px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(120deg, rgba(0, 243, 255, 0.2), rgba(0, 82, 255, 0.35));
+        }
+
+        .btn-primary::after,
+        .btn-secondary::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.35), transparent 65%);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .btn-primary:hover::after,
+        .btn-secondary:hover::after {
+            opacity: 1;
+        }
+
+        .btn-secondary {
+            background: rgba(5, 8, 26, 0.8);
+            color: var(--muted-color);
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            font-size: 0.7rem;
+        }
+
+        .tag {
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--muted-color);
+        }
+
+        /* RIGHT PANEL */
+        .side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .panel-top {
+            padding: 14px 16px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-subtle);
+            background: radial-gradient(circle at top, rgba(0, 243, 255, 0.16), rgba(3, 5, 18, 0.96));
+            box-shadow: var(--shadow-soft);
+            font-size: 0.77rem;
+            color: var(--muted-color);
+        }
+
+        .panel-top-title {
+            font-size: 0.74rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .panel-pills {
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .panel-pill {
+            font-size: 0.7rem;
+            padding: 4px 9px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(1, 5, 22, 0.9);
+        }
+
+        .panel-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .panel-card {
+            padding: 12px 13px 13px;
+            border-radius: 16px;
+            border: 1px solid var(--border-subtle);
+            background:
+                radial-gradient(circle at top, var(--accent-soft), rgba(2, 4, 18, 0.96));
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9);
+            font-size: 0.78rem;
+        }
+
+        .panel-card-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted-color);
+            margin-bottom: 4px;
+        }
+
+        .panel-card-title {
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .panel-card-body {
+            font-size: 0.76rem;
+            color: var(--muted-color);
+        }
+
+        .panel-card-foot {
+            font-size: 0.7rem;
+            color: var(--muted-color);
+            margin-top: 6px;
+            opacity: 0.7;
+        }
+
+        /* HUD OVERLAYS */
+        .hud {
+            position: fixed;
+            font-size: 10px;
+            color: rgba(230, 235, 255, 0.6);
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .hud-tl { top: 14px; left: 16px; text-align: left; }
+        .hud-tr { top: 14px; right: 16px; text-align: right; }
+        .hud-bl { bottom: 18px; left: 16px; text-align: left; }
+        .hud-br { bottom: 18px; right: 16px; text-align: right; }
+
+        .progress-bar {
+            width: 120px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.14);
+            margin-top: 5px;
+            position: relative;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            position: absolute;
+            inset: 0;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-color), #ffffff);
+            transition: width 0.2s ease;
+        }
+
+        #interaction-prompt {
+            position: fixed;
+            bottom: 64px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: var(--muted-color);
+            opacity: 0.4;
+            animation: pulse 2.4s infinite;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.18; }
+            50% { opacity: 0.85; }
+            100% { opacity: 0.18; }
+        }
+
+        /* LOADER */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #000000;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            font-family: monospace;
+            letter-spacing: 0.3em;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        #loader-sub {
+            margin-top: 10px;
+            font-size: 0.65rem;
+            letter-spacing: 0.26em;
+            opacity: 0.7;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 960px) {
+            .main {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero-card {
+                order: 2;
+            }
+
+            .side-panel {
+                order: 1;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .nav {
+                flex-wrap: wrap;
+                gap: 14px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .app-shell {
+                padding-inline: 16px;
+            }
+
+            #interaction-prompt {
+                bottom: 52px;
+                font-size: 0.62rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header class="top-nav" id="top">
-        <div class="nav-logo">
-            <img src="logo.png" alt="Logo Xafronox" class="logo-small">
-            <span class="brand">Xafronox Universe</span>
-        </div>
-        <nav class="nav-links">
-            <a href="#hero">Inicio</a>
-            <a href="#historia">Historia</a>
-            <a href="#proyectos">Proyectos</a>
-            <a href="#portafolio">Portafolio</a>
-            <a href="#experiencia">Experiencia</a>
-            <a href="#soundscapes">Soundscapes</a>
-            <a href="#agenda">Agenda</a>
-            <a href="#blog">Blog</a>
-            <a href="#integraciones">Integraciones</a>
-            <a href="#extras">Media</a>
-        </nav>
-        <a class="nav-cta" href="#contacto">Agenda una reunión</a>
-        <button class="nav-toggle" aria-label="Abrir menú">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </header>
+    <div id="loader">
+        BOOTING XAFRONOX ENGINE
+        <div id="loader-sub">CALIBRATING REAL-TIME SYSTEMS...</div>
+    </div>
 
-    <main>
-        <section class="hero" id="hero">
-            <div class="hero-content" data-aos="fade-up">
-                <div class="hero-intro">
-                    <p class="hero-eyebrow">Marca personal • Startup Tech • IA Estratégica</p>
-                    <h1>Construyendo el universo Xafronox para revolucionar el emprendimiento digital.</h1>
-                    <p class="hero-description">Fundador, estratega y creador de experiencias digitales que combinan producto, comunidad y tecnología inmersiva. Inspiro confianza liderando equipos, lanzando startups y conectando alianzas globales.</p>
-                    <div class="hero-actions">
-                        <a href="#newsletter" class="btn primary">Únete al newsletter</a>
-                        <a href="#portafolio" class="btn secondary">Explora el portafolio</a>
-                    </div>
-                    <div class="hero-metrics">
-                        <div>
-                            <span class="metric-value" data-target="125000">0</span>
-                            <span class="metric-label">Usuarios impactados</span>
-                        </div>
-                        <div>
-                            <span class="metric-value" data-target="36">0</span>
-                            <span class="metric-label">Lanzamientos globales</span>
-                        </div>
-                        <div>
-                            <span class="metric-value" data-target="4.92">0</span>
-                            <span class="metric-label">NPS promedio</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-media" data-aos="fade-left">
-                <div class="hero-card">
-                    <img src="logo.png" alt="Xafronox" class="hero-logo">
-                    <div class="hero-video">
-                        <iframe src="https://www.youtube.com/embed/2g811Eo7K8U" title="Trailer Xafronox" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="hero-bio">
-                        <h2>Fundador de Xafronox</h2>
-                        <p>"Construimos futuros posibles combinando visión estratégica, ejecución ágil y experiencias memorables."</p>
-                        <a class="bio-link" href="#historia">Conoce la historia →</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <div id="canvas-container"></div>
 
-        <section class="story" id="historia">
-            <div class="section-heading" data-aos="fade-up">
-                <span class="section-eyebrow">Historia, misión y filosofía</span>
-                <h2>Un viaje de innovación consciente para crear tecnología con propósito.</h2>
-                <p>De los primeros prototipos a un ecosistema global que impulsa startups, experiencias inmersivas y comunidades de alto impacto.</p>
-            </div>
-            <div class="story-timeline" data-aos="fade-up">
-                <article class="timeline-card">
-                    <h3>Origen visionario</h3>
-                    <time>2015-2018</time>
-                    <p>Investigación en interfaces humanas, lanzamiento del laboratorio Xafronox Lab y creación de los primeros MVPs impulsados por datos.</p>
-                </article>
-                <article class="timeline-card">
-                    <h3>Misiones globales</h3>
-                    <time>2019-2021</time>
-                    <p>Expansión internacional, programas de aceleración y alianzas con venture studios para escalar soluciones de IA aplicada.</p>
-                </article>
-                <article class="timeline-card">
-                    <h3>Filosofía</h3>
-                    <time>2022-Actualidad</time>
-                    <p>Crecimiento sostenible, diseño centrado en humanos, ética tecnológica y construcción de comunidades que lideran la cuarta revolución digital.</p>
-                </article>
-            </div>
-            <div class="story-pillars" data-aos="fade-up">
-                <div class="pillar-card">
-                    <h4>Misión</h4>
-                    <p>Impulsar startups y creadores para que lancen soluciones tecnológicas confiables, escalables y humanas.</p>
-                </div>
-                <div class="pillar-card">
-                    <h4>Visión</h4>
-                    <p>Convertir Xafronox en la plataforma de referencia para innovación integrando producto, comunidad y capital.</p>
-                </div>
-                <div class="pillar-card">
-                    <h4>Filosofía</h4>
-                    <p>Experimentar rápido, medir lo importante y amplificar aquello que genera impacto real para las personas.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="project-map" id="proyectos">
-            <div class="section-heading" data-aos="fade-up">
-                <span class="section-eyebrow">Mapa estratégico</span>
-                <h2>Explora las líneas de impacto del universo Xafronox.</h2>
-                <p>Proyectos, productos y alianzas conectados por métricas concretas y resultados tangibles.</p>
-            </div>
-            <div class="map-grid" data-aos="zoom-in">
-                <div class="map-node" data-branch="Products">
-                    <h3>Nebula OS</h3>
-                    <p>Suite operativa para startups basada en IA.</p>
-                    <div class="map-metrics">
-                        <span>58K descargas</span>
-                        <span>4.9★ rating</span>
-                    </div>
-                    <div class="map-links">
-                        <a href="https://nebulaos.app" target="_blank" rel="noopener">.app</a>
-                        <a href="https://nebulaos.live" target="_blank" rel="noopener">.live</a>
+    <div id="ui-layer">
+        <div class="app-shell">
+            <header class="nav">
+                <div class="brand">
+                    <div class="brand-mark"></div>
+                    <div>
+                        <div class="brand-text-main">XAFRONOX</div>
+                        <div class="brand-text-sub">INTELLIGENT SOFTWARE & GAME SYSTEMS</div>
                     </div>
                 </div>
-                <div class="map-node" data-branch="Community">
-                    <h3>Atlas Collective</h3>
-                    <p>Comunidad de fundadores + inversores.</p>
-                    <div class="map-metrics">
-                        <span>4.2K miembros</span>
-                        <span>87% retención</span>
-                    </div>
-                    <div class="map-links">
-                        <a href="https://atlas.app" target="_blank" rel="noopener">.app</a>
-                        <a href="https://atlas.live" target="_blank" rel="noopener">.live</a>
-                    </div>
+                <nav class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#platforms">Platforms</a>
+                    <a href="#games">Games</a>
+                    <a href="#labs">Labs</a>
+                </nav>
+                <div class="nav-cta">
+                    <span class="badge-outline">Co-building the next generation of interactive worlds</span>
+                    <span class="badge-dot"></span>
                 </div>
-                <div class="map-node" data-branch="Capital">
-                    <h3>Flux Ventures</h3>
-                    <p>Micro-fondo para startups deep tech.</p>
-                    <div class="map-metrics">
-                        <span>$12M deploy</span>
-                        <span>16 exits</span>
-                    </div>
-                    <div class="map-links">
-                        <a href="https://fluxventures.app" target="_blank" rel="noopener">.app</a>
-                        <a href="https://fluxventures.live" target="_blank" rel="noopener">.live</a>
-                    </div>
-                </div>
-                <div class="map-node" data-branch="Experiences">
-                    <h3>Pulse Live</h3>
-                    <p>Experiencias inmersivas para lanzamientos tech.</p>
-                    <div class="map-metrics">
-                        <span>120 eventos</span>
-                        <span>+1.5M asistentes</span>
-                    </div>
-                    <div class="map-links">
-                        <a href="https://pulselive.app" target="_blank" rel="noopener">.app</a>
-                        <a href="https://pulselive.live" target="_blank" rel="noopener">.live</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="portfolio" id="portafolio">
-            <div class="section-heading" data-aos="fade-up">
-                <span class="section-eyebrow">Portafolio dinámico</span>
-                <h2>Resultados medibles, colaboraciones estratégicas y alianzas globales.</h2>
-                <p>Selecciona filtros para explorar proyectos destacados, colaboraciones con marcas y casos de estudio documentados.</p>
-            </div>
-            <div class="portfolio-controls" data-aos="fade-up">
-                <button class="filter-btn active" data-filter="todos">Todos</button>
-                <button class="filter-btn" data-filter="producto">Producto</button>
-                <button class="filter-btn" data-filter="alianza">Alianzas</button>
-                <button class="filter-btn" data-filter="impacto">Impacto</button>
-            </div>
-            <div class="portfolio-grid" data-aos="fade-up">
-                <!-- Cards generadas por JavaScript -->
-            </div>
-            <div class="portfolio-3d" data-aos="fade-up">
-                <h3>Explora el portafolio 3D</h3>
-                <p>Navega por la constelación de proyectos en tiempo real. Gira el universo Xafronox y descubre iniciativas emergentes.</p>
-                <div class="canvas-wrapper">
-                    <canvas id="portfolioCanvas" aria-label="Portafolio interactivo 3D"></canvas>
-                </div>
-            </div>
-        </section>
-
-        <section class="immersion" id="experiencia">
-            <div class="section-heading" data-aos="fade-up">
-                <span class="section-eyebrow">Experiencia inmersiva</span>
-                <h2>Controla la atmósfera sonora y visual del universo Xafronox.</h2>
-                <p>Activa modos cromáticos, sonidos y métricas en vivo para personalizar tus sesiones de estrategia, storytelling o pitching.</p>
-            </div>
-            <div class="immersion-grid">
-                <div class="immersion-canvas" data-aos="fade-right">
-                    <canvas id="immersionCanvas" aria-label="Constelación inmersiva Xafronox"></canvas>
-                    <div class="immersive-hud">
-                        <button id="immersiveAudioToggle" type="button">Activar modo sonoro</button>
-                        <div class="hud-status">
-                            <span>Modo activo: <strong data-current-mode>Nebula</strong></span>
-                            <span>Música: <strong data-audio-status>Off</strong></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="immersion-console" data-aos="fade-left">
-                    <h3>Centro de control</h3>
-                    <p>Selecciona un modo para personalizar colorimetría, ritmos y foco según la sesión. Todo se sincroniza con el portafolio 3D y el chatbot IA.</p>
-                    <div class="mode-grid">
-                        <!-- Renderizado dinámico -->
-                    </div>
-                    <div class="energy-bars">
-                        <div class="energy-bar" data-value="92">
-                            <span>Confianza comunidad</span>
-                            <div class="energy-meter"><span class="fill"></span></div>
-                        </div>
-                        <div class="energy-bar" data-value="88">
-                            <span>Innovación producto</span>
-                            <div class="energy-meter"><span class="fill"></span></div>
-                        </div>
-                        <div class="energy-bar" data-value="94">
-                            <span>Experiencia inmersiva</span>
-                            <div class="energy-meter"><span class="fill"></span></div>
-                        </div>
-                    </div>
-                    <div class="telemetry">
-                        <div class="telemetry-card">
-                            <span>Nivel creativo</span>
-                            <strong data-telemetry="creatividad" data-base="92">92%</strong>
-                        </div>
-                        <div class="telemetry-card">
-                            <span>Flow operacional</span>
-                            <strong data-telemetry="operacion" data-base="87">87%</strong>
-                        </div>
-                        <div class="telemetry-card">
-                            <span>Engagement comunidad</span>
-                            <strong data-telemetry="engagement" data-base="94">94%</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <audio id="ambientAudio" src="https://cdn.pixabay.com/download/audio/2022/10/03/audio_a60f205a75.mp3?filename=distant-worlds-122886.mp3" preload="auto" loop></audio>
-        </section>
-
-        <section class="soundscapes" id="soundscapes">
-            <div class="section-heading" data-aos="fade-up">
-                <span class="section-eyebrow">Soundscapes</span>
-                <h2>Rap colombiano y reggaetón antiguo para activar el mindset Xafronox.</h2>
-                <p>Playlists seleccionadas para inspirar, componer pitch decks y mantener el groove en sesiones de producto.</p>
-            </div>
-            <div class="soundscape-grid" data-aos="fade-up">
-                <!-- Renderizado dinámico -->
-            </div>
-        </section>
-
-        <section class="events" id="agenda">
-            <div class="section-heading" data-aos="fade-up">
-                <span class="section-eyebrow">Agenda en vivo</span>
-                <h2>Experiencias, labs y sesiones para conectar con el universo Xafronox.</h2>
-                <p>Reserva tu lugar en summits, demo days, retiros creativos y experiencias híbridas alrededor del mundo.</p>
-            </div>
-            <div class="events-grid" data-aos="fade-up">
-                <!-- Renderizado dinámico -->
-            </div>
-        </section>
-
-        <section class="social-proof" id="logros">
-            <div class="section-heading" data-aos="fade-up">
-                <span class="section-eyebrow">Impacto y credenciales</span>
-                <h2>Construimos confianza con datos, testimonios y cobertura mediática.</h2>
-            </div>
-            <div class="proof-grid" data-aos="fade-up">
-                <div class="proof-card">
-                    <h3>Reconocimientos</h3>
-                    <ul>
-                        <li>Top 10 Startups Tech LATAM · 2024</li>
-                        <li>Premio Innovación Ética · AI Responsibility Forum</li>
-                        <li>Mejor Experiencia Digital · Webby Awards</li>
-                    </ul>
-                </div>
-                <div class="proof-card">
-                    <h3>Testimonios</h3>
-                    <blockquote>
-                        “Xafronox transformó nuestra estrategia digital en 90 días. Pasamos de MVP a Serie A con una ejecución impecable.”
-                        <cite>— Clara Méndez, CEO NovaLabs</cite>
-                    </blockquote>
-                    <blockquote>
-                        “La visión del fundador de Xafronox es magnética: combina negocio, storytelling y tecnología con precisión.”
-                        <cite>— Miguel Arrieta, Partner FutureFund</cite>
-                    </blockquote>
-                </div>
-                <div class="proof-card">
-                    <h3>Métricas clave</h3>
-                    <ul>
-                        <li>ROI promedio consultoría: 312%</li>
-                        <li>+76 alianzas estratégicas activas</li>
-                        <li>36 lanzamientos exitosos en 18 países</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="blog" id="blog">
-            <div class="section-heading" data-aos="fade-up">
-                <span class="section-eyebrow">Blog & Opinión</span>
-                <h2>Ideas sobre innovación, startup tech y emprendimiento digital.</h2>
-                <p>Perspectivas accionables para fundadores, equipos de producto y líderes que construyen el futuro.</p>
-            </div>
-            <div class="blog-grid" data-aos="fade-up">
-                <!-- Artículos generados por JavaScript -->
-            </div>
-            <div class="seo-keywords" data-aos="fade-up">
-                <span>#xafronox</span>
-                <span>#startupTech</span>
-                <span>#emprendimientoDigital</span>
-                <span>#innovación</span>
-                <span>#IAaplicada</span>
-            </div>
-        </section>
-
-        <section class="integrations" id="integraciones">
-            <div class="section-heading" data-aos="fade-up">
-                <span class="section-eyebrow">Integraciones y comunidad</span>
-                <h2>Conecta con el universo Xafronox: newsletter, IA y experiencias personalizadas.</h2>
-            </div>
-            <div class="integrations-grid" data-aos="fade-up">
-                <div class="integration-card" id="newsletter">
-                    <h3>Newsletter semanal</h3>
-                    <p>Estrategia, productos y tendencias con foco en crecimiento sostenible. Únete a la lista premium.</p>
-                    <form class="newsletter-form" action="https://example.us1.list-manage.com/subscribe/post" method="POST" target="_blank">
-                        <input type="hidden" name="u" value="REEMPLAZA_CON_TU_ID">
-                        <input type="hidden" name="id" value="REEMPLAZA_CON_TU_LIST_ID">
-                        <label for="email">Correo electrónico</label>
-                        <input type="email" id="email" name="EMAIL" placeholder="tu@email.com" required>
-                        <button type="submit">Suscribirme</button>
-                        <small>Gestionado con Mailchimp • Sin spam</small>
-                    </form>
-                </div>
-                <div class="integration-card chatbot">
-                    <h3>Chatbot Xafronox IA</h3>
-                    <p>Resuelve dudas en segundos. Agenda sesiones, solicita el media kit o descubre el roadmap.</p>
-                    <button id="chatbotToggle" type="button">Abrir asistente</button>
-                    <small>Integrable con Intercom, Drift o tu stack preferido.</small>
-                </div>
-                <div class="integration-card">
-                    <h3>Experiencia inmersiva</h3>
-                    <p>Portafolio interactivo en 3D listo para mostrar en keynotes, eventos y demos.</p>
-                    <a class="btn tertiary" href="#portafolio">Ver en vivo</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="extras" id="extras">
-            <div class="section-heading" data-aos="fade-up">
-                <span class="section-eyebrow">Media & recursos</span>
-                <h2>Podcast, media kit y centro de enlaces para amplificar la marca.</h2>
-            </div>
-            <div class="extras-grid" data-aos="fade-up">
-                <div class="extra-card">
-                    <h3>Podcast: Xafronox Sessions</h3>
-                    <p>Conversaciones con fundadores, inversionistas y makers que construyen el futuro.</p>
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-                </div>
-                <div class="extra-card">
-                    <h3>Media kit</h3>
-                    <p>Descarga logos, bios, fotografías y lineamientos de marca para prensa y colaboraciones.</p>
-                    <a class="btn primary" href="https://xafronox.live/media-kit.pdf" target="_blank" rel="noopener">Descargar media kit</a>
-                </div>
-                <div class="extra-card" id="contacto">
-                    <h3>Agenda una conversación</h3>
-                    <p>Sesiones estratégicas con startups, corporativos o medios. Calendly, Zoom o presencial.</p>
-                    <a class="btn secondary" href="https://cal.com/xafronox" target="_blank" rel="noopener">Reservar ahora</a>
-                </div>
-            </div>
-            <div class="linktree" data-aos="fade-up">
-                <h3>Link central Xafronox</h3>
-                <div class="linktree-grid">
-                    <a href="https://xafronox.app" target="_blank" rel="noopener">Xafronox.app</a>
-                    <a href="https://xafronox.live" target="_blank" rel="noopener">Xafronox.live</a>
-                    <a href="https://github.com/xafronox" target="_blank" rel="noopener">GitHub repos</a>
-                    <a href="https://www.linkedin.com/in/xafronox" target="_blank" rel="noopener">LinkedIn</a>
-                    <a href="https://twitter.com/xafronox" target="_blank" rel="noopener">Twitter / X</a>
-                    <a href="https://youtube.com/@xafronox" target="_blank" rel="noopener">YouTube</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <div class="footer-brand">
-            <img src="logo.png" alt="Logo Xafronox" class="logo-footer">
-            <p>Xafronox · Ecosistema de innovación, tecnología y storytelling.</p>
-        </div>
-        <div class="footer-meta">
-            <p>© <span id="currentYear"></span> Xafronox. Todos los derechos reservados.</p>
-            <p>Palabras clave SEO: startup tech, emprendimiento digital, innovación estratégica.</p>
-        </div>
-        <div class="footer-links">
-            <a href="#top">Ir arriba</a>
-            <a href="mailto:hola@xafronox.com">hola@xafronox.com</a>
-            <a href="https://xfronox.notion.site" target="_blank" rel="noopener">Press Room</a>
-        </div>
-    </footer>
-
-    <div class="chatbot-widget" aria-live="polite">
-        <div class="chatbot-window" role="dialog" aria-modal="false" aria-label="Chatbot Xafronox">
-            <header>
-                <img src="logo.png" alt="Xafronox" class="chatbot-logo">
-                <div>
-                    <h4>Xafronox IA</h4>
-                    <span>Respuesta en tiempo real</span>
-                </div>
-                <button class="chatbot-close" type="button" aria-label="Cerrar chatbot">×</button>
             </header>
-            <div class="chatbot-messages"></div>
-            <form class="chatbot-input" autocomplete="off">
-                <input type="text" name="message" placeholder="Escribe tu pregunta..." required>
-                <button type="submit">Enviar</button>
-            </form>
+
+            <main class="main" id="about">
+                <section class="hero-card">
+                    <div class="hero-inner">
+                        <div class="hero-kicker">REAL-TIME EXPERIENCES POWERED BY INTELLIGENCE</div>
+                        <div class="hero-title-row">
+                            <h1 class="hero-title glitch" id="hero-title" data-text="BUILD INTELLIGENT WORLDS">
+                                BUILD INTELLIGENT WORLDS
+                            </h1>
+                            <div class="state-pill">
+                                <span class="state-dot"></span>
+                                <span id="state-label">ORIGIN MODE</span>
+                            </div>
+                        </div>
+                        <p class="hero-subtitle" id="hero-subtitle">
+                            Xafronox diseña y construye plataformas de software y universos de juego donde
+                            cada interacción alimenta un sistema vivo: motores propietarios, IA en tiempo real
+                            y experiencias que se adaptan a jugadores y usuarios.
+                        </p>
+                        <div class="meta-row">
+                            <span>Game engines & online worlds</span>
+                            <span>AI-native software platforms</span>
+                            <span>Real-time infrastructure</span>
+                        </div>
+                        <div class="hero-actions">
+                            <button class="btn-primary" id="primary-cta">Schedule a demo</button>
+                            <button class="btn-secondary" id="secondary-cta">Download vision deck</button>
+                        </div>
+                        <div class="tag-row">
+                            <span class="tag">Neural-driven experiences</span>
+                            <span class="tag">Cross-platform engines</span>
+                            <span class="tag">Multiplayer-ready by design</span>
+                            <span class="tag">From prototype to global launch</span>
+                        </div>
+                    </div>
+                </section>
+
+                <aside class="side-panel" id="platforms">
+                    <div class="panel-top">
+                        <div class="panel-top-title">STACK OVERVIEW</div>
+                        <div>
+                            Orquestamos motores de juego, infraestructura cloud y modelos de IA en una sola
+                            malla coherente. Un tejido técnico pensado para que puedas iterar rápido,
+                            lanzar en grande y aprender en tiempo real.
+                        </div>
+                        <div class="panel-pills">
+                            <span class="panel-pill">Realtime Engines</span>
+                            <span class="panel-pill">Neural Services</span>
+                            <span class="panel-pill">Observability</span>
+                            <span class="panel-pill">DevOps Tooling</span>
+                        </div>
+                    </div>
+
+                    <div class="panel-grid">
+                        <article class="panel-card" id="games">
+                            <div class="panel-card-label">GAME SYSTEMS</div>
+                            <div class="panel-card-title">Living universes</div>
+                            <div class="panel-card-body">
+                                Economías dinámicas, IA de personajes y lógica de juego conectada a modelos
+                                de lenguaje para que cada sesión se sienta única.
+                            </div>
+                            <div class="panel-card-foot">Diseñado para estudios que quieren ir más allá del script.</div>
+                        </article>
+
+                        <article class="panel-card">
+                            <div class="panel-card-label">SOFTWARE FABRIC</div>
+                            <div class="panel-card-title">Adaptive platforms</div>
+                            <div class="panel-card-body">
+                                Sistemas de producto que responden a contexto, datos en streaming y decisiones
+                                del usuario en milisegundos.
+                            </div>
+                            <div class="panel-card-foot">Dashboards, APIs y frontends sobre el mismo motor.</div>
+                        </article>
+
+                        <article class="panel-card" id="labs">
+                            <div class="panel-card-label">XAFRONOX LABS</div>
+                            <div class="panel-card-title">Experimental interfaces</div>
+                            <div class="panel-card-body">
+                                Prototipos de juegos conectados a IA, UX adaptativa y mundos que reaccionan
+                                a voz, gesto y contexto.
+                            </div>
+                            <div class="panel-card-foot">Pilotos en 4–8 semanas con equipos pequeños.</div>
+                        </article>
+
+                        <article class="panel-card">
+                            <div class="panel-card-label">PARTNERSHIPS</div>
+                            <div class="panel-card-title">Co-building with pioneers</div>
+                            <div class="panel-card-body">
+                                Trabajamos con estudios, startups y marcas que entienden que el siguiente salto
+                                no es solo gráfico, sino cognitivo.
+                            </div>
+                            <div class="panel-card-foot">Estrategia, tecnología y producción en un mismo equipo.</div>
+                        </article>
+                    </div>
+                </aside>
+            </main>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js" integrity="sha512-GTOiYsR0Kw0pXnAyWeXs5WdKZmoeZaZX6mE6xPD58Ll35H0TADaBrZEcD3xKhsR4HIX66vepL9enZ5bY3bT5xQ==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js" integrity="sha512-9Mv0ykGGBqBPdZiZsaAJ+lZeI7IuAv89xDSHLVQQP4Jrped1IovnHgwlHGawEq+y3OCAXoTr4Wr9PXgC7Guiqw==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/ScrollTrigger.min.js" integrity="sha512-M/qobELjVXGLFGFSci/UPygF/4o6qnls/m1xfRt1fTZNY0HdCm0E8/z22jT2wyXR3Y6GkFm/JBUG3MxiAiYe3w==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" integrity="sha512-p8td1N0pXjAU6YewsGmmKzBSSMSmc5QwDFi1Cdm0H8weP5dlGqKqRR3YKHyCuXapnwYfJ7Mqtk7bZPIW2txL0w==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
-    <script src="data/portfolio-data.js" defer></script>
-    <script src="data/blog-data.js" defer></script>
-    <script src="data/events-data.js" defer></script>
-    <script src="data/music-data.js" defer></script>
-    <script src="data/immersion-modes.js" defer></script>
-    <script src="immersive.js" defer></script>
-    <script src="script.js" defer></script>
+    <div class="hud hud-tl">
+        XAFRONOX.ENGINE v3.9<br />
+        FRAME: <span id="fps">0</span> /s<br />
+        EVENT STREAM: <span id="token-count">0</span>
+    </div>
+    <div class="hud hud-tr">
+        NEURAL SPACE COORDS<br />
+        X: <span id="coord-x">0.00</span> Y: <span id="coord-y">0.00</span>
+    </div>
+    <div class="hud hud-bl">
+        CLUSTER UTILIZATION<br />
+        <div class="progress-bar"><div class="progress-fill" id="memory-bar"></div></div>
+    </div>
+    <div class="hud hud-br">
+        EXPERIENCE STATE: <span id="system-state">IDLE</span>
+    </div>
+
+    <div id="interaction-prompt">CLICK TO SHIFT MODES • SCROLL TO TRAVERSE STATES</div>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        // CONFIG & STATES
+        const CONFIG = {
+            particleCount: 140000,
+            bloomStrength: 1.6,
+            bloomRadius: 0.35,
+            bloomThreshold: 0.12
+        };
+
+        const STATES = [
+            {
+                key: "ORIGIN",
+                label: "ORIGIN MODE",
+                heroTitle: "BUILD INTELLIGENT WORLDS",
+                heroSubtitle:
+                    "El núcleo del motor Xafronox: servicios, datos y simulación listos para encender experiencias en tiempo real.",
+                color: new THREE.Vector3(0.15, 0.45, 0.95),
+                shape: 0.0
+            },
+            {
+                key: "RUNTIME",
+                label: "RUNTIME SESSION",
+                heroTitle: "EVERY SESSION, A NEW WORLD",
+                heroSubtitle:
+                    "Cuando un jugador entra, el sistema reconfigura reglas, ritmo y dificultad en función de contexto, historial y momento.",
+                color: new THREE.Vector3(0.9, 0.3, 0.65),
+                shape: 1.0
+            },
+            {
+                key: "SANDBOX",
+                label: "SANDBOX FIELD",
+                heroTitle: "PROTOTYPE AT GAME SPEED",
+                heroSubtitle:
+                    "Espacios seguros para romper reglas de diseño, probar nuevas mecánicas y conectar IA sin frenar a producción.",
+                color: new THREE.Vector3(0.12, 0.92, 0.5),
+                shape: 2.0
+            },
+            {
+                key: "NETWORK",
+                label: "NETWORK SCALE",
+                heroTitle: "FROM ONE SERVER TO MILLIONS",
+                heroSubtitle:
+                    "Infraestructura y herramientas para escalar de un prototipo privado a una comunidad global conectada.",
+                color: new THREE.Vector3(0.98, 0.72, 0.22),
+                shape: 3.0
+            }
+        ];
+
+        let currentStateIndex = 0;
+
+        // THREE.JS SETUP
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x000000, 0.002);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+
+        const renderer = new THREE.WebGLRenderer({
+            antialias: false,
+            powerPreference: 'high-performance'
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        // SHADERS
+        const vertexShader = `
+            uniform float uTime;
+            uniform float uShape;
+            uniform float uDistortion;
+            uniform vec2 uMouse;
+
+            attribute float aRandom;
+            attribute vec3 aRandomVec;
+
+            varying vec3 vColor;
+            varying float vDist;
+
+            vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+            vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+            vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
+            vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+            float snoise(vec3 v) {
+                const vec2 C = vec2(1.0/6.0, 1.0/3.0);
+                const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+                vec3 i  = floor(v + dot(v, C.yyy) );
+                vec3 x0 = v - i + dot(i, C.xxx) ;
+                vec3 g = step(x0.yzx, x0.xyz);
+                vec3 l = 1.0 - g;
+                vec3 i1 = min( g.xyz, l.zxy );
+                vec3 i2 = max( g.xyz, l.zxy );
+                vec3 x1 = x0 - i1 + C.xxx;
+                vec3 x2 = x0 - i2 + C.yyy;
+                vec3 x3 = x0 - D.yyy;
+                i = mod289(i);
+                vec4 p = permute( permute( permute(
+                        i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
+                        + i.y + vec4(0.0, i1.y, i2.y, 1.0 ))
+                        + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
+                float n_ = 0.142857142857;
+                vec3  ns = n_ * D.wyz - D.xzx;
+                vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+                vec4 x_ = floor(j * ns.z);
+                vec4 y_ = floor(j - 7.0 * x_ );
+                vec4 x = x_ *ns.x + ns.yyyy;
+                vec4 y = y_ *ns.x + ns.yyyy;
+                vec4 h = 1.0 - abs(x) - abs(y);
+                vec4 b0 = vec4( x.xy, y.xy );
+                vec4 b1 = vec4( x.zw, y.zw );
+                vec4 s0 = floor(b0)*2.0 + 1.0;
+                vec4 s1 = floor(b1)*2.0 + 1.0;
+                vec4 sh = -step(h, vec4(0.0));
+                vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
+                vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
+                vec3 p0 = vec3(a0.xy,h.x);
+                vec3 p1 = vec3(a0.zw,h.y);
+                vec3 p2 = vec3(a1.xy,h.z);
+                vec3 p3 = vec3(a1.zw,h.w);
+                vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+                p0 *= norm.x;
+                p1 *= norm.y;
+                p2 *= norm.z;
+                p3 *= norm.w;
+                vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+                m = m * m;
+                return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3) ) );
+            }
+
+            void main() {
+                vec3 pos = position;
+
+                vec3 posSphere = normalize(pos + aRandomVec * 0.4) * 3.0;
+
+                float angle = atan(pos.z, pos.x);
+                float radius = length(pos.xz);
+                vec3 posTorus = vec3(
+                    cos(angle * 3.0 + uTime * 0.7) * (3.3 + sin(radius + uTime) * 0.4),
+                    pos.y * 1.7 + sin(uTime + radius) * 0.8,
+                    sin(angle * 3.0 + uTime * 0.7) * (3.3 + cos(radius + uTime) * 0.4)
+                );
+
+                vec3 posNoise = pos * 1.4 + aRandomVec * sin(uTime * 0.7 + aRandom * 6.28);
+
+                vec3 posCube = floor(pos * 1.4) + 0.5;
+
+                vec3 finalPos = pos;
+                float t = uShape;
+
+                if (t < 1.0) {
+                    finalPos = mix(posSphere, posTorus, t);
+                } else if (t < 2.0) {
+                    finalPos = mix(posTorus, posNoise, t - 1.0);
+                } else if (t < 3.0) {
+                    finalPos = mix(posNoise, posCube, t - 2.0);
+                } else {
+                    finalPos = mix(posCube, posSphere, t - 3.0);
+                }
+
+                float noiseVal = snoise(finalPos * 0.45 + uTime * 0.2);
+                finalPos += normal * noiseVal * uDistortion;
+
+                float d = distance(finalPos.xy, uMouse * 10.0);
+                if (d < 3.0) {
+                    finalPos += normal * (3.0 - d) * 0.5 * sin(uTime * 10.0 + aRandom * 6.2831);
+                }
+
+                vec4 mvPosition = modelViewMatrix * vec4(finalPos, 1.0);
+                gl_Position = projectionMatrix * mvPosition;
+
+                gl_PointSize = (10.0 * aRandom + 2.0) * (1.0 / -mvPosition.z);
+
+                vDist = distance(finalPos, vec3(0.0));
+                vColor = mix(vec3(0.1), vec3(1.0), aRandom);
+            }
+        `;
+
+        const fragmentShader = `
+            uniform vec3 uColor;
+            uniform float uTime;
+
+            varying vec3 vColor;
+            varying float vDist;
+
+            void main() {
+                vec2 xy = gl_PointCoord.xy - vec2(0.5);
+                float ll = length(xy);
+                if (ll > 0.5) discard;
+
+                float alpha = 1.0 - smoothstep(0.3, 0.5, ll);
+
+                vec3 finalColor = uColor * vColor;
+                finalColor += vec3(sin(vDist * 10.0 - uTime * 2.0) * 0.2);
+
+                gl_FragColor = vec4(finalColor, alpha * 0.8);
+            }
+        `;
+
+        // PARTICLES
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(CONFIG.particleCount * 3);
+        const randoms = new Float32Array(CONFIG.particleCount);
+        const randomVecs = new Float32Array(CONFIG.particleCount * 3);
+
+        for (let i = 0; i < CONFIG.particleCount; i++) {
+            positions[i * 3] = (Math.random() - 0.5) * 10;
+            positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
+            positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
+
+            randoms[i] = Math.random();
+            randomVecs[i * 3] = (Math.random() - 0.5);
+            randomVecs[i * 3 + 1] = (Math.random() - 0.5);
+            randomVecs[i * 3 + 2] = (Math.random() - 0.5);
+        }
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1));
+        geometry.setAttribute('aRandomVec', new THREE.BufferAttribute(randomVecs, 3));
+
+        const material = new THREE.ShaderMaterial({
+            uniforms: {
+                uTime: { value: 0 },
+                uShape: { value: 0 },
+                uDistortion: { value: 0.5 },
+                uColor: { value: STATES[0].color.clone() },
+                uMouse: { value: new THREE.Vector2(0, 0) }
+            },
+            vertexShader,
+            fragmentShader,
+            transparent: true,
+            depthWrite: false,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particles = new THREE.Points(geometry, material);
+        scene.add(particles);
+
+        // POSTPROCESSING
+        const renderScene = new THREE.RenderPass(scene, camera);
+        const bloomPass = new THREE.UnrealBloomPass(
+            new THREE.Vector2(window.innerWidth, window.innerHeight),
+            CONFIG.bloomStrength,
+            CONFIG.bloomRadius,
+            CONFIG.bloomThreshold
+        );
+        const composer = new THREE.EffectComposer(renderer);
+        composer.addPass(renderScene);
+        composer.addPass(bloomPass);
+
+        // INTERACTION
+        const mouse = new THREE.Vector2();
+        const targetMouse = new THREE.Vector2();
+        const windowHalfX = window.innerWidth / 2;
+        const windowHalfY = window.innerHeight / 2;
+
+        document.addEventListener('mousemove', (event) => {
+            mouse.x = (event.clientX - windowHalfX) / windowHalfX;
+            mouse.y = (event.clientY - windowHalfY) / windowHalfY;
+        });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // STATE TRANSITIONS
+        const heroTitleEl = document.getElementById('hero-title');
+        const heroSubtitleEl = document.getElementById('hero-subtitle');
+        const stateLabelEl = document.getElementById('state-label');
+        const systemStateEl = document.getElementById('system-state');
+
+        function applyState(index) {
+            const state = STATES[index];
+
+            gsap.to('.hero-inner', {
+                opacity: 0,
+                y: -12,
+                duration: 0.35,
+                onComplete: () => {
+                    heroTitleEl.textContent = state.heroTitle;
+                    heroTitleEl.setAttribute('data-text', state.heroTitle);
+                    heroSubtitleEl.textContent = state.heroSubtitle;
+                    stateLabelEl.textContent = state.label;
+                    systemStateEl.textContent = state.key;
+
+                    gsap.to('.hero-inner', { opacity: 1, y: 0, duration: 0.6 });
+                }
+            });
+
+            gsap.to(material.uniforms.uShape, {
+                value: state.shape,
+                duration: 3,
+                ease: 'power2.inOut'
+            });
+
+            gsap.to(material.uniforms.uColor.value, {
+                x: state.color.x,
+                y: state.color.y,
+                z: state.color.z,
+                duration: 2
+            });
+
+            gsap.to(camera.position, {
+                z: 3.3,
+                duration: 0.2,
+                yoyo: true,
+                repeat: 1,
+                ease: 'power2.in'
+            });
+        }
+
+        document.addEventListener('click', () => {
+            const nextIndex = (currentStateIndex + 1) % STATES.length;
+            currentStateIndex = nextIndex;
+            applyState(currentStateIndex);
+
+            gsap.to(material.uniforms.uDistortion, {
+                value: 3.0,
+                duration: 0.22,
+                yoyo: true,
+                repeat: 1,
+                onComplete: () => {
+                    material.uniforms.uDistortion.value = 0.5;
+                }
+            });
+        });
+
+        let lastScroll = 0;
+        document.addEventListener('wheel', (e) => {
+            const now = Date.now();
+            if (now - lastScroll > 900) {
+                lastScroll = now;
+                const dir = e.deltaY > 0 ? 1 : -1;
+                currentStateIndex = (currentStateIndex + dir + STATES.length) % STATES.length;
+                applyState(currentStateIndex);
+            }
+        });
+
+        // HUD + LOADER + CTA
+        const clock = new THREE.Clock();
+        let tokenCounter = 0;
+        const fpsElem = document.getElementById('fps');
+        const tokenElem = document.getElementById('token-count');
+        const coordXElem = document.getElementById('coord-x');
+        const coordYElem = document.getElementById('coord-y');
+        const memBar = document.getElementById('memory-bar');
+        let frameCount = 0;
+        let lastTime = 0;
+
+        const loader = document.getElementById('loader');
+        setTimeout(() => {
+            loader.style.transition = 'opacity 0.6s ease';
+            loader.style.opacity = '0';
+            setTimeout(() => (loader.style.display = 'none'), 650);
+        }, 700);
+
+        document.getElementById('primary-cta').addEventListener('click', (e) => {
+            e.stopPropagation();
+            alert('Aquí puedes enlazar tu formulario de contacto, WhatsApp o Calendly para Xafronox.');
+        });
+
+        document.getElementById('secondary-cta').addEventListener('click', (e) => {
+            e.stopPropagation();
+            alert('Conecta este botón a tu deck de visión: PDF, Notion o sitio aparte.');
+        });
+
+        // ANIMATION LOOP
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const elapsed = clock.getElapsedTime();
+            clock.getDelta();
+
+            targetMouse.x += (mouse.x - targetMouse.x) * 0.05;
+            targetMouse.y += (mouse.y - targetMouse.y) * 0.05;
+
+            particles.rotation.y = elapsed * 0.05;
+            particles.rotation.z = targetMouse.x * 0.25;
+
+            material.uniforms.uTime.value = elapsed;
+            material.uniforms.uMouse.value = targetMouse;
+
+            camera.position.x += (targetMouse.x * 2 - camera.position.x) * 0.02;
+            camera.position.y += (-targetMouse.y * 2 - camera.position.y) * 0.02;
+            camera.lookAt(scene.position);
+
+            tokenCounter += 1;
+            tokenElem.textContent = tokenCounter;
+            coordXElem.textContent = targetMouse.x.toFixed(2);
+            coordYElem.textContent = targetMouse.y.toFixed(2);
+            memBar.style.width = `${(Math.sin(elapsed) + 1) * 50}%`;
+
+            frameCount++;
+            if (elapsed - lastTime >= 1) {
+                fpsElem.textContent = frameCount;
+                frameCount = 0;
+                lastTime = elapsed;
+            }
+
+            composer.render();
+        }
+
+        applyState(0);
+        animate();
+    </script>
 </body>
 </html>
